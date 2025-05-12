@@ -1,0 +1,9 @@
+UC_LL_04
+-The makePayment() method belongs to the Payment class, but the Student actor triggers it via the system interface. While there’s no direct association in the class diagram, this is typical in UML: actors represent users or external systems initiating actions that call internal methods. The system handles the underlying object creation and method invocation — the diagram reflects that flow.
+-The NotificationService is modeled as a shared utility class responsible for delivering notifications to system users. It contains the method sendNotification(recipient, message), which is shown in the class diagram. In this use case, after the Payment class processes a transaction via the PaymentGateway, it determines whether the transaction was successful or not.
+
+Based on the outcome, Payment invokes the sendNotification(...) method to alert the appropriate user (Landlord on success, Student on failure). Even though Payment does not have an explicit aggregation or composition relationship with NotificationService in the class diagram, this design treats NotificationService as a globally accessible utility, similar to how logging or authentication services are commonly used in software architecture.
+
+In practice, such service classes are often accessed statically or injected globally, so direct access by Payment is acceptable in this context. The method call is shown from Payment to NotificationService to accurately represent the system’s control flow — Payment decides when and to whom a notification should be sent.
+
+-The NotificationService is treated as a Singleton utility class, meaning only one instance of it exists system-wide and it can be accessed globally. This justifies why classes like Payment can invoke sendNotification(...) without owning or aggregating a NotificationService instance. It follows the common design practice of centralizing shared responsibilities like messaging or logging in a stateless service.
