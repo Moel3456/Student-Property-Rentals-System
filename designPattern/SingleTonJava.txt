@@ -1,0 +1,19 @@
+public class NotificationService {
+    // Step 1: Create a private static instance
+    private static NotificationService instance;
+
+    // Step 2: Make the constructor private
+    private NotificationService() {}
+
+    // Step 3: Provide a public static method to get the instance
+    public static NotificationService getInstance() {
+        if (instance == null) {
+            instance = new NotificationService();
+        }
+        return instance;
+    }
+
+    public void sendNotification(User user, String msg) {
+        System.out.println("Notifying " + user.name);
+    }
+}
